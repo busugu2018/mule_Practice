@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="82d97407-44ec-4d5a-bbce-36828e87ffbd" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="mule_practice1Flow" doc:id="f362f343-ae03-42f1-83d1-a17b9ec7b194" >
+		<http:listener doc:name="Listener" doc:id="69b376eb-2ff3-40c7-9057-f48611ecefec" config-ref="HTTP_Listener_config" path="/test1"/>
+		<logger level="INFO" doc:name="Requester Logger" doc:id="638d6329-4fd2-4868-a5fa-762dc9f2a788" message="Name and age is: "/>
+		<set-payload value='#[output application/json&#10;---&#10;{&#10;	"name": payload.firstName ++ " " ++ payload.lastName,&#10;	"age": payload.age&#10;}]' doc:name="Set Payload" doc:id="15260c4a-5779-471b-a2e6-b7ac6a0e2ce4" />
+		<logger level="INFO" doc:name="Response  Logger" doc:id="c43a6d18-07be-491d-984e-e7b36396a824" message="okay"/>
+	</flow>
+</mule>
